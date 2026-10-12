@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Coffee | أورا كوفي</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #120b08;
+            --bg-card: rgba(32, 21, 15, 0.75);
+            --primary-coffee: #d4a373;
+            --primary-gold: #e6b87d;
+            --accent-warm: #bc6c25;
+            --text-light: #fefae0;
+            --text-muted: #a39382;
+            --border-color: rgba(212, 163, 115, 0.2);
+            --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        /* Ambient Coffee Background Images */
+        .bg-overlay-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-coffee-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.18;
+            filter: blur(4px) contrast(1.1);
+            background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .bg-gradient-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 20%, rgba(60, 35, 23, 0.85) 0%, rgba(18, 11, 8, 0.98) 75%);
+            pointer-events: none;
+        }
+
+        /* Navigation Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(18, 11, 8, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+        }
+
+        .brand-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .svg-logo {
+            width: 42px;
+            height: 42px;
+            fill: none;
+            stroke: var(--primary-gold);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+        }
+
+        .brand-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lang-btn {
+            background: rgba(212, 163, 115, 0.1);
+            border: 1px solid var(--border-color);
+            color: var(--primary-gold);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-smooth);
+        }
+
+        .lang-btn:hover {
+            background: var(--primary-gold);
+            color: var(--bg-dark);
+        }
+
+        .btn-talabat-header {
+            background: #ff5a00;
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(255, 90, 0, 0.3);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-talabat-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 90, 0, 0.5);
+            background: #e04f00;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 85vh;
+            padding: 140px 5% 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-badge {
+            background: rgba(212, 163, 115, 0.15);
+            border: 1px solid var(--border-color);
+            color: var(--primary-gold);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(180deg, #ffffff 0%, var(--primary-coffee) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--accent-warm) 100%);
+            color: var(--bg-dark);
+            padding: 0.9rem 2.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.05rem;
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 25px rgba(230, 184, 125, 0.25);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(230, 184, 125, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212, 163, 115, 0.15);
+            border-color: var(--primary-gold);
+            color: var(--primary-gold);
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 80px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Search and Categories */
+        .menu-controls {
+            max-width: 1000px;
+            margin: 0 auto 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1.2rem 1rem 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            color: var(--text-light);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-gold);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px rgba(230, 184, 125, 0.2);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .category-scroll {
+            display: flex;
+            gap: 0.8rem;
+            overflow-x: auto;
+            padding-bottom: 0.8rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-gold) transparent;
+        }
+
+        .category-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .category-scroll::-webkit-scrollbar-thumb {
+            background: var(--primary-coffee);
+            border-radius: 10px;
+        }
+
+        .cat-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 0.6rem 1.4rem;
+            border-radius: 25px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--primary-gold);
+            color: var(--bg-dark);
+            border-color: var(--primary-gold);
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backdrop-filter: blur(8px);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-gold);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(188, 108, 37, 0.2);
+            color: var(--primary-gold);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid rgba(230, 184, 125, 0.3);
+        }
+
+        .menu-card-header {
+            margin-bottom: 0.8rem;
+        }
+
+        .item-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 0.4rem;
+        }
+
+        .item-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .menu-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.2rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .item-price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary-gold);
+        }
+
+        .currency {
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-right: 2px;
+        }
+
+        /* Location Section */
+        .location-section {
+            padding: 80px 5%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .location-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            backdrop-filter: blur(10px);
+        }
+
+        .location-info {
+            padding: 3rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .location-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .location-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-light);
+        }
+
+        .location-detail i {
+            color: var(--primary-gold);
+            font-size: 1.3rem;
+            margin-top: 4px;
+        }
+
+        .location-map-preview {
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=800&auto=format&fit=crop') center/cover;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-overlay-btn {
+            background: rgba(18, 11, 8, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--primary-gold);
+            color: var(--text-light);
+            padding: 1rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-smooth);
+        }
+
+        .map-overlay-btn:hover {
+            background: var(--primary-gold);
+            color: var(--bg-dark);
+            transform: scale(1.05);
+        }
+
+        /* Talabat Dedicated Section */
+        .talabat-section {
+            padding: 60px 5%;
+            text-align: center;
+        }
+
+        .talabat-banner {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(255, 90, 0, 0.15) 0%, rgba(32, 21, 15, 0.9) 100%);
+            border: 1px solid rgba(255, 90, 0, 0.4);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .talabat-logo-txt {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ff5a00;
+            letter-spacing: 1px;
+        }
+
+        .btn-talabat-large {
+            background: #ff5a00;
+            color: #ffffff;
+            padding: 1rem 2.5rem;
+            border-radius: 35px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(255, 90, 0, 0.4);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-talabat-large:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 90, 0, 0.6);
+            background: #e04f00;
+        }
+
+        /* Footer with Semi-transparent Watermark Logo */
+        footer {
+            background: #080503;
+            padding: 80px 5% 40px;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: var(--transition-smooth);
+        }
+
+        .social-link:hover {
+            background: var(--primary-gold);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Watermark Logo in Corner */
+        .footer-watermark-logo {
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
+            width: 320px;
+            height: 320px;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 1;
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 2;
+        }
+
+        html[dir="dir"] .footer-watermark-logo,
+        body[dir="ltr"] .footer-watermark-logo {
+            left: auto;
+            right: -60px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .location-container {
+                grid-template-columns: 1fr;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Images and Gradients -->
+    <div class="bg-overlay-container">
+        <div class="bg-coffee-img"></div>
+    </div>
+    <div class="bg-gradient-layer"></div>
+
+    <!-- Header Navbar -->
+    <header>
+        <a href="#" class="brand-logo-container">
+            <svg class="svg-logo" viewBox="0 0 100 100">
+                <path d="M 20,20 L 20,55 C 20,75 35,85 50,85 C 65,85 80,75 80,55 L 80,20" />
+                <path d="M 32,28 L 32,55 C 32,68 40,74 50,74 C 60,74 68,68 68,55 L 68,28" />
+                <path d="M 44,38 L 44,55 C 44,60 46,63 50,63 C 54,63 56,60 56,55 L 56,38" />
+            </svg>
+            <span class="brand-title">AURA COFFEE</span>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#home" id="nav-home">الرئيسية</a></li>
+            <li><a href="#menu" id="nav-menu">قائمة الطعام</a></li>
+            <li><a href="#location" id="nav-location">الفرع</a></li>
+            <li><a href="#order" id="nav-order">اطلب الآن</a></li>
+        </ul>
+
+        <div class="header-actions">
+            <button class="lang-btn" id="langToggle">
+                <i class="fa-solid fa-globe"></i>
+                <span id="langText">EN</span>
+            </button>
+
+            <a href="https://www.talabat.com/ar/iraq/restaurant/1122863/aura-coffee-yarmuk-yarmuk?aid=9747" target="_blank" class="btn-talabat-header">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span id="txt-talabat-header">طلب عبر طلبات</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-badge">
+            <i class="fa-solid fa-star" style="color: #ffd700;"></i>
+            <span>تقييم 4.6 على Google (أكثر من 71 مراجعة)</span>
+        </div>
+        <h1 class="hero-title" id="hero-title-txt">Your Vibes, Your Aura</h1>
+        <p class="hero-subtitle" id="hero-sub-txt">استمتع بأرقى أوقات القهوة المختصة والمشروبات المنعشة والحلويات في أجواء بغدادية ساحرة وخاصة.</p>
+        
+        <div class="hero-buttons">
+            <a href="#menu" class="btn-primary">
+                <i class="fa-solid fa-mug-hot"></i>
+                <span id="btn-explore-menu">استكشف المنيو</span>
+            </a>
+            <a href="https://maps.app.goo.gl/KTjcoard5VUad9F68" target="_blank" class="btn-secondary">
+                <i class="fa-solid fa-location-dot"></i>
+                <span id="btn-visit-us">موقع الفرع</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="section-header">
+            <h2 class="section-title" id="menu-title">قائمة أورا كوفي</h2>
+            <p class="section-desc" id="menu-desc">اختر مشروبك أو تحنيتك المفضلة المصنوعة بكل حب وشغف</p>
+        </div>
+
+        <div class="menu-controls">
+            <!-- Search Box -->
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ابحث عن مشروبك أو حلوى...">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+
+            <!-- Categories Scroll -->
+            <div class="category-scroll" id="categoryContainer">
+                <!-- Dynamically Inserted Categories -->
+            </div>
+        </div>
+
+        <!-- Items Grid -->
+        <div class="menu-grid" id="menuGrid">
+            <!-- Dynamically Inserted Menu Items -->
+        </div>
+    </section>
+
+    <!-- Location Branch Section -->
+    <section class="location-section" id="location">
+        <div class="location-container">
+            <div class="location-info">
+                <h2 class="location-title" id="loc-title">فرع اليرموك</h2>
+                
+                <div class="location-detail">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <strong id="lbl-address">العنوان:</strong><br>
+                        <span id="val-address">شارع بسكولاته خدمي شارع بسكولاته، بغداد، 10097</span>
+                    </div>
+                </div>
+
+                <div class="location-detail">
+                    <i class="fa-solid fa-clock"></i>
+                    <div>
+                        <strong id="lbl-hours">أوقات العمل:</strong><br>
+                        <span>مفتوح يومياً · يغلق عند الساعة 00:00 منتصف الليل</span>
+                    </div>
+                </div>
+
+                <div class="location-detail">
+                    <i class="fa-solid fa-coins"></i>
+                    <div>
+                        <strong id="lbl-cost">متوسط التكلفة:</strong><br>
+                        <span>5,000 – 10,000 IQD للشخص الواحد</span>
+                    </div>
+                </div>
+
+                <a href="https://maps.app.goo.gl/KTjcoard5VUad9F68" target="_blank" class="btn-primary" style="margin-top: 1rem;">
+                    <i class="fa-solid fa-map-pin"></i>
+                    <span id="btn-open-map">فتح في خرائط Google</span>
+                </a>
+            </div>
+
+            <div class="location-map-preview">
+                <a href="https://maps.app.goo.gl/KTjcoard5VUad9F68" target="_blank" class="map-overlay-btn">
+                    <i class="fa-solid fa-diamond-turn-right"></i>
+                    <span id="btn-get-dir">الاتجاهات والموقع</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Talabat Dedicated Section -->
+    <section class="talabat-section" id="order">
+        <div class="talabat-banner">
+            <div class="talabat-logo-txt">talabat</div>
+            <h3 style="font-size: 1.8rem; font-weight: 800;" id="talabat-title">طلب سريع وتوصيل لجميع مناطق اليرموك وما حولها</h3>
+            <p style="color: var(--text-muted); max-width: 600px;" id="talabat-sub">طلب قهوتك المفضلة والحلويات مباشرة من تطبيق طلبات واصلة لحد باب بيتك.</p>
+            <a href="https://www.talabat.com/ar/iraq/restaurant/1122863/aura-coffee-yarmuk-yarmuk?aid=9747" target="_blank" class="btn-talabat-large">
+                <i class="fa-solid fa-utensils"></i>
+                <span id="btn-talabat-order-now">اطلب الآن من طلبات</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="brand-logo-container">
+                    <svg class="svg-logo" viewBox="0 0 100 100">
+                        <path d="M 20,20 L 20,55 C 20,75 35,85 50,85 C 65,85 80,75 80,55 L 80,20" />
+                        <path d="M 32,28 L 32,55 C 32,68 40,74 50,74 C 60,74 68,68 68,55 L 68,28" />
+                        <path d="M 44,38 L 44,55 C 44,60 46,63 50,63 C 54,63 56,60 56,55 L 56,38" />
+                    </svg>
+                    <span class="brand-title">AURA COFFEE</span>
+                </div>
+                <p id="footer-bio">قهوة عصرية ونكهات مختصة تميز يومك في بغداد. Your Vibes, Your Aura.</p>
+            </div>
+
+            <div>
+                <h4 style="color: var(--primary-gold); margin-bottom: 1rem;" id="footer-links-title">روابط سريعة</h4>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <li><a href="#menu" style="color: var(--text-muted); text-decoration: none;" id="fl-menu">المنيو</a></li>
+                    <li><a href="#location" style="color: var(--text-muted); text-decoration: none;" id="fl-location">موقع الفرع</a></li>
+                    <li><a href="https://www.talabat.com/ar/iraq/restaurant/1122863/aura-coffee-yarmuk-yarmuk?aid=9747" target="_blank" style="color: var(--text-muted); text-decoration: none;" id="fl-order">التوصيل عبر طلبات</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 style="color: var(--primary-gold); margin-bottom: 1rem;" id="footer-social-title">تابعنا على وسائل التواصل</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;" id="footer-social-desc">خليك على اطلاع بأحدث الفعاليات والورش الممتعة</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/auracoffee.iq/?locale=ar_AR" target="_blank" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/auracoffee.iq/?hl=ar" target="_blank" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <span id="year">2026</span> AURA COFFEE. جميع الحقوق محفوظة.</p>
+        </div>
+
+        <!-- Corner Watermark Semi-Transparent Logo -->
+        <svg class="footer-watermark-logo" viewBox="0 0 100 100">
+            <path d="M 20,20 L 20,55 C 20,75 35,85 50,85 C 65,85 80,75 80,55 L 80,20" />
+            <path d="M 32,28 L 32,55 C 32,68 40,74 50,74 C 60,74 68,68 68,55 L 68,28" />
+            <path d="M 44,38 L 44,55 C 44,60 46,63 50,63 C 54,63 56,60 56,55 L 56,38" />
+        </svg>
+    </footer>
+
+    <!-- JavaScript Data and Interactivity -->
+    <script>
+        // Menu Data array from provided Talabat details
+        const menuData = [
+            // اختيارات على ذوقك 🔥
+            { name: "قهوة كراميل مكياتو", desc: "قهوة، حليب وسيروب كراميل", price: 5000, category: "اختيارات على ذوقك 🔥" },
+            { name: "آيس لاتيه أسباني", desc: "إسبريسو، حليب مبخر، رغوة، سكر وثلج", price: 5000, category: "اختيارات على ذوقك 🔥" },
+            { name: "قهوة فلات وايت", desc: "قهوة مركزة وحليب", price: 4500, category: "اختيارات على ذوقك 🔥" },
+            { name: "قهوة كابتشينو", desc: "قهوة إسبريسو مركزة، حليب ورغوة", price: 5500, category: "اختيارات على ذوقك 🔥" },
+            { name: "آيس تي ليمون", desc: "شاي ليمون، عصير ليمون وثلج", price: 6000, category: "اختيارات على ذوقك 🔥" },
+            { name: "آيس كراميل مكياتو", desc: "قهوة، حليب، سيروب كراميل وثلج", price: 5500, category: "اختيارات على ذوقك 🔥" },
+
+            // الآيس اللاتيه
+            { name: "آيس لاتيه", desc: "إسبريسو غني، حليب مثلج", price: 6000, category: "الآيس اللاتيه" },
+            { name: "آيس لاتيه كراميل", desc: "إسبريسو مع سيروب كراميل وحليب وثلج", price: 6000, category: "الآيس اللاتيه" },
+            { name: "آيس لاتيه فانيلا", desc: "إسبريسو بنكهة الفانيلا المميزة", price: 6000, category: "الآيس اللاتيه" },
+            { name: "آيس لاتيه كراميل مملح", desc: "نكهة السولتيد كراميل الغنية مع القهوة", price: 6000, category: "الآيس اللاتيه" },
+            { name: "آيس لاتيه بندق", desc: "قهوة مثلجة بنكهة البندق الدافئة", price: 6000, category: "الآيس اللاتيه" },
+            { name: "آيس سبانش لاتيه", desc: "حليب مكثف محلى مع إسبريسو وثلج", price: 6000, category: "الآيس اللاتيه" },
+            { name: "آيس أمريكانو", desc: "إسبريسو مع ماء بارد وثلج", price: 6000, category: "الآيس اللاتيه" },
+            { name: "آيس وايت موكا", desc: "شوكولاتة بيضاء، إسبريسو وحليب مثلج", price: 6000, category: "الآيس اللاتيه" },
+            { name: "آيس دارك موكا", desc: "شوكولاتة داكنة غنية مع قهوة مثلجة", price: 6000, category: "الآيس اللاتيه" },
+
+            // الكلاسيك
+            { name: "إسبريسو", desc: "جرعة قهوة مركزة طازجة", price: 5000, category: "الكلاسيك" },
+            { name: "مكياتو إسبريسو", desc: "إسبريسو مع لمسة رغوة حليب", price: 5000, category: "الكلاسيك" },
+            { name: "إسبريسو أفوجاتو", desc: "إسبريسو ساخن يسكب فوق آيس كريم", price: 5000, category: "الكلاسيك" },
+            { name: "كورتادو", desc: "توازن مثالي بين الإسبريسو والحليب المبخر", price: 5000, category: "الكلاسيك" },
+            { name: "فلات وايت", desc: "إسبريسو مزدوج مع طبقة ناعمة من الحليب", price: 5000, category: "الكلاسيك" },
+            { name: "كابتشينو", desc: "إسبريسو مع رغوة حليب كثيفة", price: 5000, category: "الكلاسيك" },
+            { name: "أمريكانو", desc: "إسبريسو ممدد بالماء الساخن", price: 5000, category: "الكلاسيك" },
+
+            // القهوة اللاتيه
+            { name: "لاتيه فانيليا", desc: "حليب مبخر، إسبريسو ونكهة الفانيلا", price: 6000, category: "القهوة اللاتيه" },
+            { name: "لاتيه كراميل", desc: "لاتيه دافئ مع سيروب الكراميل الناعم", price: 6000, category: "القهوة اللاتيه" },
+            { name: "لاتيه كراميل مملح", desc: "مزج راقي بين الملح والكراميل والقهوة", price: 6000, category: "القهوة اللاتيه" },
+            { name: "لاتيه بندق", desc: "نكهة البندق المحمص مع قهوة لاتيه", price: 6000, category: "القهوة اللاتيه" },
+            { name: "لاتيه فستق", desc: "نكهة الفستق الحلبي الغنية", price: 6000, category: "القهوة اللاتيه" },
+
+            // نوت كوفي
+            { name: "هوت شوكليت توقيع", desc: "شوكولاتة ساخنة فاخرة بخلطة أورا الخاصة", price: 5500, category: "نوت كوفي" },
+            { name: "شاي كرك", desc: "شاي هندي مبهر بالحليب والهيل", price: 4500, category: "نوت كوفي" },
+            { name: "ماء", desc: "مياه معدنية نقية", price: 500, category: "نوت كوفي" },
+
+            // السندويتشات
+            { name: "كرواسون شوكولاتة", desc: "عجينة كرواسون هشّة محشوة بشوكولاتة", price: 3500, category: "السندويتشات" },
+            { name: "صمون اسمر روست", desc: "خبز أسمر صحي مع لحم روست فاخر", price: 6000, category: "السندويتشات" },
+            { name: "صمون اسمر دجاج", desc: "خبز أسمر مع قطع دجاج متبلة", price: 6000, category: "السندويتشات" },
+
+            // آيس تي
+            { name: "آيس تي خوخ", desc: "شاي خوخ، عصير خوخ وثلج", price: 6000, category: "آيس تي" },
+            { name: "آيس تي ليمون", desc: "شاي ليمون منعش مع ثلج", price: 6000, category: "آيس تي" },
+            { name: "ايس تي كركديه", desc: "عصير كركدية طبيعي وشاي ليمون", price: 6000, category: "آيس تي" },
+            { name: "شاي مثلج فراولة", desc: "نكهة الفراولة الطازجة مع الشاي المثلج", price: 6000, category: "آيس تي" },
+
+            // الماتشا
+            { name: "كلاسيك ماتشا", desc: "ماتشا يابانية فاخرة وحليب من إختيارك", price: 6500, category: "الماتشا" },
+            { name: "ماتشا فانيليا", desc: "ماتشا، فانيليا وحليب", price: 7500, category: "الماتشا" },
+            { name: "ماتشا جوز الهند", desc: "ماتشا بنكهة جوز الهند الاستوائية", price: 7500, category: "الماتشا" },
+            { name: "ماتشا فراولة", desc: "ماتشا كريمية مع طبقة فراولة", price: 7500, category: "الماتشا" },
+            { name: "ماتشا مانغو", desc: "مزيج الماتشا والمانجو المنعش", price: 7000, category: "الماتشا" },
+
+            // القهوة التركية
+            { name: "قهوة تركية", desc: "قهوة تركية اصيلة مطبوخة بعناية", price: 3000, category: "القهوة التركية" },
+            { name: "قهوة تركية بالشوكولاتة", desc: "قهوة تركية بنكهة الشوكولاتة الغنية", price: 4000, category: "القهوة التركية" },
+
+            // الفراب
+            { name: "فرابيه كراميل مملح", desc: "مشروب فراب مثلج ومخفوق بالكراميل المملح", price: 7000, category: "الفراب" },
+            { name: "دارك موكا فراب", desc: "فراب الشوكولاتة الداكنة مع القهوة", price: 7000, category: "الفراب" },
+            { name: "فراب كوكيز", desc: "مخفوق مع قطع الكوكيز المقرمشة", price: 7000, category: "الفراب" },
+            { name: "فرابيه ماتشا", desc: "فرابيه الماتشا المثلج والبارد", price: 7500, category: "الفراب" },
+
+            // الموهيتو
+            { name: "موهيتو بطيخ", desc: "عصير بطيخ، سيروب بطيخ، سفن أب وصودا", price: 7000, category: "الموهيتو" },
+            { name: "موهيتو بلو", desc: "شراب بلو، عصير ليمون طازج وسفن أب", price: 5500, category: "الموهيتو" },
+            { name: "موهيتو فراولة", desc: "عصير فراولة وسيروب فراولة وصودا", price: 5500, category: "الموهيتو" },
+
+            // الحلويات
+            { name: "كوكيز بالشوكولاتة", desc: "شوكولاتة، دقيق، زبدة، مزيج من سكر أبيض وبني", price: 3500, category: "الحلويات" }
+        ];
+
+        let selectedCategory = "الكل";
+        let currentLang = "ar";
+
+        const translations = {
+            ar: {
+                navHome: "الرئيسية",
+                navMenu: "قائمة الطعام",
+                navLocation: "الفرع",
+                navOrder: "اطلب الآن",
+                talabatHeader: "طلب عبر طلبات",
+                heroTitle: "Your Vibes, Your Aura",
+                heroSub: "استمتع بأرقى أوقات القهوة المختصة والمشروبات المنعشة والحلويات في أجواء بغدادية ساحرة وخاصة.",
+                btnExplore: "استكشف المنيو",
+                btnVisit: "موقع الفرع",
+                menuTitle: "قائمة أورا كوفي",
+                menuDesc: "اختر مشروبك أو تحنيتك المفضلة المصنوعة بكل حب وشغف",
+                searchPlaceholder: "ابحث عن مشروبك أو حلوى...",
+                catAll: "الكل",
+                locTitle: "فرع اليرموك",
+                lblAddress: "العنوان:",
+                valAddress: "شارع بسكولاته خدمي شارع بسكولاته، بغداد، 10097",
+                lblHours: "أوقات العمل:",
+                lblCost: "متوسط التكلفة:",
+                btnMap: "فتح في خرائط Google",
+                btnDir: "الاتجاهات والموقع",
+                talabatTitle: "طلب سريع وتوصيل لجميع مناطق اليرموك وما حولها",
+                talabatSub: "طلب قهوتك المفضلة والحلويات مباشرة من تطبيق طلبات واصلة لحد باب بيتك.",
+                btnTalabatNow: "اطلب الآن من طلبات",
+                footerBio: "قهوة عصرية ونكهات مختصة تميز يومك في بغداد. Your Vibes, Your Aura.",
+                footerLinksTitle: "روابط سريعة",
+                footerSocialTitle: "تابعنا على وسائل التواصل",
+                footerSocialDesc: "خليك على اطلاع بأحدث الفعاليات والورش الممتعة"
+            },
+            en: {
+                navHome: "Home",
+                navMenu: "Menu",
+                navLocation: "Branch",
+                navOrder: "Order Now",
+                talabatHeader: "Order via Talabat",
+                heroTitle: "Your Vibes, Your Aura",
+                heroSub: "Enjoy premium specialty coffee, refreshing drinks, and delicious desserts in a warm Baghdadi atmosphere.",
+                btnExplore: "Explore Menu",
+                btnVisit: "Branch Location",
+                menuTitle: "Aura Coffee Menu",
+                menuDesc: "Choose your favorite drink or treat crafted with love and passion.",
+                searchPlaceholder: "Search drinks or desserts...",
+                catAll: "All",
+                locTitle: "Al-Yarmouk Branch",
+                lblAddress: "Address:",
+                valAddress: "Biscotte Service Street, Baghdad, 10097",
+                lblHours: "Opening Hours:",
+                lblCost: "Average Cost:",
+                btnMap: "Open in Google Maps",
+                btnDir: "Get Directions",
+                talabatTitle: "Fast Delivery around Al-Yarmouk & Nearby Areas",
+                talabatSub: "Order your favorite coffee and treats delivered straight to your doorstep via Talabat.",
+                btnTalabatNow: "Order Now on Talabat",
+                footerBio: "Modern specialty coffee making your days brighter in Baghdad. Your Vibes, Your Aura.",
+                footerLinksTitle: "Quick Links",
+                footerSocialTitle: "Follow Us",
+                footerSocialDesc: "Stay tuned for our latest events and workshops."
+            }
+        };
+
+        function renderCategories() {
+            const container = document.getElementById("categoryContainer");
+            const categories = ["الكل", ...new Set(menuData.map(i => i.category))];
+            
+            container.innerHTML = categories.map(cat => {
+                const label = (cat === "الكل" && currentLang === "en") ? "All" : cat;
+                return `<button class="cat-btn ${cat === selectedCategory ? 'active' : ''}" onclick="filterCategory('${cat}')">${label}</button>`;
+            }).join('');
+        }
+
+        function filterCategory(cat) {
+            selectedCategory = cat;
+            renderCategories();
+            renderMenuItems();
+        }
+
+        function renderMenuItems() {
+            const grid = document.getElementById("menuGrid");
+            const searchVal = document.getElementById("searchInput").value.toLowerCase();
+
+            const filtered = menuData.filter(item => {
+                const matchesCat = (selectedCategory === "الكل") || (item.category === selectedCategory);
+                const matchesSearch = item.name.toLowerCase().includes(searchVal) || item.desc.toLowerCase().includes(searchVal);
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">لا توجد نتائج مطابقة لبحثك.</p>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(item => `
+                <div class="menu-card">
+                    <span class="card-tag">${item.category}</span>
+                    <div class="menu-card-header">
+                        <h3 class="item-name">${item.name}</h3>
+                        <p class="item-desc">${item.desc}</p>
+                    </div>
+                    <div class="menu-card-footer">
+                        <div class="item-price">${item.price.toLocaleString()} <span class="currency">IQD</span></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Language Switcher Logic
+        document.getElementById("langToggle").addEventListener("click", () => {
+            currentLang = currentLang === "ar" ? "en" : "ar";
+            document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+            document.documentElement.lang = currentLang;
+            document.getElementById("langText").innerText = currentLang === "ar" ? "EN" : "عربي";
+            
+            // Apply language text
+            const t = translations[currentLang];
+            document.getElementById("nav-home").innerText = t.navHome;
+            document.getElementById("nav-menu").innerText = t.navMenu;
+            document.getElementById("nav-location").innerText = t.navLocation;
+            document.getElementById("nav-order").innerText = t.navOrder;
+            document.getElementById("txt-talabat-header").innerText = t.talabatHeader;
+            document.getElementById("hero-title-txt").innerText = t.heroTitle;
+            document.getElementById("hero-sub-txt").innerText = t.heroSub;
+            document.getElementById("btn-explore-menu").innerText = t.btnExplore;
+            document.getElementById("btn-visit-us").innerText = t.btnVisit;
+            document.getElementById("menu-title").innerText = t.menuTitle;
+            document.getElementById("menu-desc").innerText = t.menuDesc;
+            document.getElementById("searchInput").placeholder = t.searchPlaceholder;
+            document.getElementById("loc-title").innerText = t.locTitle;
+            document.getElementById("lbl-address").innerText = t.lblAddress;
+            document.getElementById("val-address").innerText = t.valAddress;
+            document.getElementById("lbl-hours").innerText = t.lblHours;
+            document.getElementById("lbl-cost").innerText = t.lblCost;
+            document.getElementById("btn-open-map").innerText = t.btnMap;
+            document.getElementById("btn-get-dir").innerText = t.btnDir;
+            document.getElementById("talabat-title").innerText = t.talabatTitle;
+            document.getElementById("talabat-sub").innerText = t.talabatSub;
+            document.getElementById("btn-talabat-order-now").innerText = t.btnTalabatNow;
+            document.getElementById("footer-bio").innerText = t.footerBio;
+            document.getElementById("footer-links-title").innerText = t.footerLinksTitle;
+            document.getElementById("footer-social-title").innerText = t.footerSocialTitle;
+            document.getElementById("footer-social-desc").innerText = t.footerSocialDesc;
+
+            renderCategories();
+            renderMenuItems();
+        });
+
+        // Search Listener
+        document.getElementById("searchInput").addEventListener("input", renderMenuItems);
+
+        // Initial Load
+        renderCategories();
+        renderMenuItems();
+    </script>
+</body>
+</html>
